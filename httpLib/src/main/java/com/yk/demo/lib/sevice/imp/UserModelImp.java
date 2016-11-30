@@ -24,7 +24,7 @@ public class UserModelImp implements IuserModel {
         private static UserModelImp userModelImp = new UserModelImp();
     }
 
-    public static synchronized UserModelImp getUserModelImp(){
+    public static UserModelImp getUserModelImp(){
         return UserModelImpHolder.userModelImp;
     }
 

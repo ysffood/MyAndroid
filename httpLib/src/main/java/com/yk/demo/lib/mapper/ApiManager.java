@@ -27,7 +27,7 @@ public class ApiManager {
      * 获取PhoneApi实例
      * @return ApiManager
      */
-    public static synchronized ApiManager getInstance() {
+    public static ApiManager getInstance() {
         return ApiHolder.apiManager;
     }
 
