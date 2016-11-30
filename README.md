@@ -1,0 +1,28 @@
+# MyAndroid
+this is framework of android by Mr.Yang
+<html>
+<head>
+<title>this is framework of android by Mr.Yang</title>
+</head>
+<body>
+<ul>
+  <li>项目介绍</li>
+  <li>主要内容</li>
+  <li>针对目标</li>
+  <li>版本更新日志</li>
+</ul>
+<h3>项目介绍</h3>
+<div>本项目是一个个人原创的android框架，也是本人第一个上传至github上的并长期维护的项目代码，如果项目中有什么问题，或者有什么比较好的建议，欢迎邮箱联系，共同学习</div>
+<address>361557919@qq.com</address>
+<h3>主要内容</h3>
+<div>主要是集成一些android开发过程中常用的功能与工具</div>
+<h3>针对目标</h3>
+<div>需要快速开发android的朋友</div>
+<h3>版本更新日志</h3>
+<h5>v1.0.0</h5>
+<ul>
+  <li>添加了Retrofit2.1.0,封装了okhttp3.4.1，支持常用的Get请求，Post请求</li>
+  <li>集成了RxJava1.2.1,优化了http请求回调</li>
+</ul>
+</body>
+</html>
