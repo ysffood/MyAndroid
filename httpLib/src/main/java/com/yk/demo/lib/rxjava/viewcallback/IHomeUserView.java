@@ -1,4 +1,4 @@
-package com.yk.demo.lib.rxjava.observer;
+package com.yk.demo.lib.rxjava.viewcallback;
 
 /**
  * 观察者角色抽象类

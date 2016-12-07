@@ -1,4 +1,4 @@
-package com.yk.demo.lib.rxjava.subject;
+package com.yk.demo.lib.rxjava.presenter;
 
 /**
  * 发送获取用户列表请求

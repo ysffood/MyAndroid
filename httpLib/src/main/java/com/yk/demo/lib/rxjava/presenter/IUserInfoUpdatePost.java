@@ -1,4 +1,4 @@
-package com.yk.demo.lib.rxjava.subject;
+package com.yk.demo.lib.rxjava.presenter;
 
 import com.yk.demo.lib.bean.response.UserBean;
 
@@ -9,10 +9,10 @@ import com.yk.demo.lib.bean.response.UserBean;
  * @version V1.0.0
  * created at 2016/11/28 15:40
  */
-public interface IUserInfoUpdate {
+public interface IUserInfoUpdatePost {
     /**
-     * 更新用户信息请求
+     * 更新用户信息请求Post方式
      * @param userBean 用户实体
      */
-    void sendUserInfoUpdate(UserBean userBean);
+    void sendUserInfoUpdateByPost(UserBean userBean);
 }

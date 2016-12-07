@@ -1,4 +1,4 @@
-package com.yk.demo.lib.rxjava.subject.presenter;
+package com.yk.demo.lib.rxjava.presenter.imp;
 
 import com.yk.demo.lib.bean.HttpResponse;
 import com.yk.demo.lib.bean.response.UserBean;
@@ -6,10 +6,10 @@ import com.yk.demo.lib.exception.AppException;
 import com.yk.demo.lib.rxjava.core.BasePresenter;
 import com.yk.demo.lib.rxjava.core.MvpView;
 import com.yk.demo.lib.rxjava.core.SubscriberCallBack;
-import com.yk.demo.lib.rxjava.observer.IHomeUserView;
-import com.yk.demo.lib.rxjava.subject.IUserGetList;
-import com.yk.demo.lib.rxjava.subject.IUserInfoUpdate;
-import com.yk.demo.lib.rxjava.subject.IUserInfoUpdatePost;
+import com.yk.demo.lib.rxjava.viewcallback.IHomeUserView;
+import com.yk.demo.lib.rxjava.presenter.IUserGetList;
+import com.yk.demo.lib.rxjava.presenter.IUserInfoUpdate;
+import com.yk.demo.lib.rxjava.presenter.IUserInfoUpdatePost;
 import com.yk.demo.lib.sevice.imp.UserModelImp;
 
 import java.util.ArrayList;

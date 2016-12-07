@@ -31,17 +31,17 @@ public class OkHttp3Clent {
                 Request original = chain.request();
                 Request newRequest = original.newBuilder()
                         .addHeader("User-Agent", "Your-App-Name")
-                        .header("Accept", "application/vnd.yourapi.v1.full+json")
+//                        .header("Accept", "application/vnd.yourapi.v1.full+json")
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(newRequest);
             }
         };
-
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
                 .addInterceptor(logging) //设置 Debug Log 模式
                 .addInterceptor(headerInterceptor) //设置 OkHttp 请求拦截器
+//                .cache(new Cache(new File(context.getExternalCacheDir(), "http_cache"), 1024 * 1024 * 100))
                 .connectTimeout(10, TimeUnit.SECONDS) // 设置请求连接的超时时间
                 .writeTimeout(30, TimeUnit.SECONDS) // 设置请求写的超时时间
                 .readTimeout(30, TimeUnit.SECONDS) // 设置请求读的超时时间

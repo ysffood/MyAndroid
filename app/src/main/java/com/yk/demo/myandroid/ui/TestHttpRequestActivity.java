@@ -1,20 +1,22 @@
 package com.yk.demo.myandroid.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.yk.demo.lib.bean.HttpResponse;
 import com.yk.demo.lib.bean.response.UserBean;
-import com.yk.demo.lib.rxjava.observer.IHomeUserView;
-import com.yk.demo.lib.rxjava.subject.presenter.HomeViewPresenter;
+import com.yk.demo.lib.rxjava.presenter.imp.HomeViewPresenter;
+import com.yk.demo.lib.rxjava.viewcallback.IHomeUserView;
 import com.yk.demo.myandroid.R;
 
-public class HomeActivity extends MvpActivity implements IHomeUserView {
+public class TestHttpRequestActivity extends MvpActivity implements IHomeUserView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Log.d("系统当前时间", System.currentTimeMillis()+"");
 
         // 初始化presenter对象
         intPresenter();
@@ -54,6 +56,7 @@ public class HomeActivity extends MvpActivity implements IHomeUserView {
     @Override
     public void getUserListFailure(Exception e) {
         Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

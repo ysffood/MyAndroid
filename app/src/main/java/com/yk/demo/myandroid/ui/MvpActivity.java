@@ -1,7 +1,7 @@
 package com.yk.demo.myandroid.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.yk.demo.lib.rxjava.core.BasePresenter;
 
@@ -11,7 +11,7 @@ import com.yk.demo.lib.rxjava.core.BasePresenter;
  * @version V1.0.0
  * created at 2016/11/25 17:48
  */
-public class MvpActivity<P extends BasePresenter> extends AppCompatActivity {
+public class MvpActivity<P extends BasePresenter> extends Activity {
 
     protected P mvpPresenter;
 
