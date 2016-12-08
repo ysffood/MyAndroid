@@ -10,16 +10,21 @@ import com.yk.demo.lib.rxjava.presenter.imp.HomeViewPresenter;
 import com.yk.demo.lib.rxjava.viewcallback.IHomeUserView;
 import com.yk.demo.myandroid.R;
 
-public class TestHttpRequestActivity extends MvpActivity implements IHomeUserView {
+public class TestHttpRequestActivity extends BaseActivity implements IHomeUserView {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Log.d("系统当前时间", System.currentTimeMillis()+"");
+    protected void intPresenter() {
+        mvpPresenter = new HomeViewPresenter(this);
+    }
 
-        // 初始化presenter对象
-        intPresenter();
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        Log.d("系统当前时间", System.currentTimeMillis()+"");
 
         // get 方式获取用户列表
         ((HomeViewPresenter)mvpPresenter).getUserListRequest();
@@ -41,11 +46,6 @@ public class TestHttpRequestActivity extends MvpActivity implements IHomeUserVie
         userBean.setSex("女");
         userBean.setDepartment("机动部队");
         ((HomeViewPresenter)mvpPresenter).sendUserInfoUpdateByPost(userBean);
-
-    }
-
-    private void intPresenter() {
-        mvpPresenter = new HomeViewPresenter(this);
     }
 
     @Override

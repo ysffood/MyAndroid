@@ -1,7 +1,7 @@
 package com.yk.demo.myandroid.ui;
 
 import android.Manifest;
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +13,6 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 import com.yk.demo.myandroid.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,7 +36,7 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
  * @version V1.0.0
  * created at 2016/12/7 11:40
  */
-public class TestBasicDownActivity extends Activity implements View.OnClickListener{
+public class TestBasicDownActivity extends BaseActivity implements View.OnClickListener{
 
     @BindView(R.id.bt_down)
     Button bt_start;
@@ -50,17 +49,23 @@ public class TestBasicDownActivity extends Activity implements View.OnClickListe
     private Subscription subscription;
     private RxDownload rxdownload;
     final String defaultPath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath(); // 默认下载到存储设备download文件夹
+    final String url = "http://192.168.191.1:8080/WebProjectLC/file/mobileqq_android.apk";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_down_load);
+    protected void intPresenter() {
+        //// TODO: 2016/12/8 初始化http请求presenter
+    }
 
-        ButterKnife.bind(this);
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_test_down_load;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
         rxdownload = RxDownload.getInstance(); // 每次返回的是一个全新的对象.
 
         bt_start.setOnClickListener(this);
-
     }
 
     @Override
@@ -71,9 +76,9 @@ public class TestBasicDownActivity extends Activity implements View.OnClickListe
     }
 
     /**
-     * 基础下载
+     * 开始基础下载
      */
-    public void startDownLoad(){
+    private void startDownLoad(){
         rxdownload.context(this)                  //自动安装需要Context
                 .maxThread(10)                    //设置最大线程
                 .maxRetryCount(10)                //设置下载失败重试次数
@@ -90,7 +95,7 @@ public class TestBasicDownActivity extends Activity implements View.OnClickListe
                         }
                     }
                 })
-                .compose(rxdownload.transform("http://192.168.191.1:8080/WebProjectLC/file/mobileqq_android.apk", "qq.apk", defaultPath))
+                .compose(rxdownload.transform(url, "qq.apk", defaultPath))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<DownloadStatus>() {
@@ -109,15 +114,29 @@ public class TestBasicDownActivity extends Activity implements View.OnClickListe
                     @Override
                     public void onNext(final DownloadStatus status) {
                         //下载状态
-                        progressBar.setIndeterminate(status.isChunked);
-                        progressBar.setMax((int) status.getTotalSize());
-                        progressBar.setProgress((int) status.getDownloadSize());
-                        percent.setText(status.getPercent());
-                        tv_size.setText(status.getFormatStatusString());
+                        updateProgress(status);
                     }
                 });
     }
 
+    /**
+     * 动态更新下载进度
+     * @param status 下载状态信息
+     */
+    private void updateProgress(DownloadStatus status) {
+        progressBar.setIndeterminate(status.isChunked);
+        progressBar.setMax((int) status.getTotalSize());
+        progressBar.setProgress((int) status.getDownloadSize());
+        percent.setText(status.getPercent());
+        tv_size.setText(status.getFormatStatusString());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /** 取消订阅,停止下载 */
     @Override
     protected void onDestroy() {
         super.onDestroy();
