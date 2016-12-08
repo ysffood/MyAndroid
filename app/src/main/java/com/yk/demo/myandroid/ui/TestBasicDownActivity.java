@@ -2,6 +2,7 @@ package com.yk.demo.myandroid.ui;
 
 import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.yk.demo.myandroid.R;
+import com.yk.demo.myandroid.download.DownloadController;
+
+import java.io.File;
 
 import butterknife.BindView;
 import rx.Subscriber;
@@ -39,17 +43,44 @@ import static android.os.Environment.getExternalStoragePublicDirectory;
 public class TestBasicDownActivity extends BaseActivity implements View.OnClickListener{
 
     @BindView(R.id.bt_down)
-    Button bt_start;
+    Button bt_start; // 开始下载按钮
     @BindView(R.id.progress)
-    ProgressBar progressBar;
+    ProgressBar progressBar; // 下载进度条
     @BindView(R.id.size)
-    TextView tv_size;
+    TextView tv_size; // 总大小
     @BindView(R.id.percent)
-    TextView percent;
+    TextView percent; // 下载进度
+    @BindView(R.id.tv_status)
+    TextView tv_status; // 下载状态
     private Subscription subscription;
     private RxDownload rxdownload;
     final String defaultPath = getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath(); // 默认下载到存储设备download文件夹
     final String url = "http://192.168.191.1:8080/WebProjectLC/file/mobileqq_android.apk";
+    final String saveName = "qq.apk";
+    private DownloadController downloadController; // 下载状态管理器 开始 暂停 取消 安装
+
+    /** 用于接受下载状态更改后事件执行的回调 */
+    private DownloadController.Callback statusCall = new DownloadController.Callback() {
+        @Override
+        public void startDownload() {
+            startDownLoad();
+        }
+
+        @Override
+        public void pauseDownload() {
+            pauseDown();
+        }
+
+        @Override
+        public void cancelDownload() {
+
+        }
+
+        @Override
+        public void install() {
+            installApk();
+        }
+    };
 
     @Override
     protected void intPresenter() {
@@ -66,12 +97,15 @@ public class TestBasicDownActivity extends BaseActivity implements View.OnClickL
         rxdownload = RxDownload.getInstance(); // 每次返回的是一个全新的对象.
 
         bt_start.setOnClickListener(this);
+
+        downloadController = new DownloadController(tv_status,bt_start);
     }
 
     @Override
     public void onClick(View view) {
         if (view == bt_start){
-            startDownLoad();
+            // 执行DownloadController中当前state状态对应的事件
+            downloadController.startHandleClick(statusCall);
         }
     }
 
@@ -95,20 +129,27 @@ public class TestBasicDownActivity extends BaseActivity implements View.OnClickL
                         }
                     }
                 })
-                .compose(rxdownload.transform(url, "qq.apk", defaultPath))
+                .compose(rxdownload.transform(url, saveName, defaultPath))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<DownloadStatus>() {
                     @Override
+                    public void onStart() {
+                        super.onStart();
+                        downloadController.setState(new DownloadController.Started());
+                    }
+                    @Override
                     public void onCompleted() {
                         //下载完成
                         Log.d("onCompleted","onCompleted");
+                        downloadController.setState(new DownloadController.Completed());
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         //下载出错
                         Log.d("onError",e.getMessage());
+                        downloadController.setState(new DownloadController.Paused());
                     }
 
                     @Override
@@ -117,6 +158,16 @@ public class TestBasicDownActivity extends BaseActivity implements View.OnClickL
                         updateProgress(status);
                     }
                 });
+    }
+
+    /** 暂停下载 */
+    private void pauseDown(){
+        // 暂停Service中下载地址为url的下载任务.
+        rxdownload.pauseServiceDownload(url);
+        // 切换当前下载状态
+        downloadController.setState(new DownloadController.Paused());
+        // 停止下载
+        Utils.unSubscribe(subscription);
     }
 
     /**
@@ -131,9 +182,13 @@ public class TestBasicDownActivity extends BaseActivity implements View.OnClickL
         tv_size.setText(status.getFormatStatusString());
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    /** 安装 */
+    private void installApk() {
+        Uri uri = Uri.fromFile(new File(defaultPath + File.separator + saveName));
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        startActivity(intent);
     }
 
     /** 取消订阅,停止下载 */

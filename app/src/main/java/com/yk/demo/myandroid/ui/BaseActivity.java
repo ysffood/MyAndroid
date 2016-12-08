@@ -1,6 +1,7 @@
 package com.yk.demo.myandroid.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
@@ -82,6 +83,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
      * @param savedInstanceState savedInstanceState
      */
     protected abstract void initView(Bundle savedInstanceState);
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onDestroy() {
