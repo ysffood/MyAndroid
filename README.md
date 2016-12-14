@@ -23,6 +23,9 @@ this is framework of android by Mr.Yang
 <ul>
   <li>添加了Retrofit2.1.0,封装了okhttp3.4.1，支持常用的Get请求，Post请求</li>
   <li>集成了RxJava1.2.1,优化了http请求回调</li>
+  <li>添加了上传单个文件，多文件，混合上传文件的配置</li>
+  <li>添加了基于RxDownload的文件下载功能，支持断点续传，多线程下载</li>
+  <li>添加了ButterKnife控件绑定框架</li>
 </ul>
 </body>
 </html>
