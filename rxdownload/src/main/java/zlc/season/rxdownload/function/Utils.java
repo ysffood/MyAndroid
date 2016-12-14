@@ -49,7 +49,6 @@ public class Utils {
         }
     }
 
-    //取消订阅, 即可暂停下载, 若服务端不支持断点续传,下一次下载会重新下载,反之会继续下载
     public static void unSubscribe(Subscription subscription) {
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
@@ -68,12 +67,12 @@ public class Utils {
         return HttpHeaders.contentLength(response.headers());
     }
 
-    public static String transferEncoding(Response<?> response) {
-        return response.headers().get("Transfer-Encoding");
+    public static boolean isChunked(Response<?> response) {
+        return "chunked".equals(transferEncoding(response));
     }
 
     public static boolean notSupportRange(Response<?> response) {
-        return TextUtils.isEmpty(contentRange(response)) || contentLength(response) == -1;
+        return TextUtils.isEmpty(contentRange(response)) || contentLength(response) == -1 || isChunked(response);
     }
 
     public static boolean serverFileChanged(Response<Void> resp) {
@@ -116,6 +115,10 @@ public class Utils {
             hrSize = dec.format(b).concat(" B");
         }
         return hrSize;
+    }
+
+    private static String transferEncoding(Response<?> response) {
+        return response.headers().get("Transfer-Encoding");
     }
 
     private static String contentRange(Response<?> response) {

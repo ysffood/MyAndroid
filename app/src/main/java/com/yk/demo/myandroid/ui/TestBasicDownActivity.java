@@ -149,7 +149,7 @@ public class TestBasicDownActivity extends BaseActivity implements View.OnClickL
                     public void onError(Throwable e) {
                         //下载出错
                         Log.d("onError",e.getMessage());
-                        downloadController.setState(new DownloadController.Paused());
+                        downloadController.setState(new DownloadController.Failed());
                     }
 
                     @Override
