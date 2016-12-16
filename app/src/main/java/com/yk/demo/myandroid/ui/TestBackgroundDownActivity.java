@@ -16,11 +16,11 @@ import com.yk.demo.myandroid.R;
 import com.yk.demo.myandroid.download.DownloadController;
 
 import butterknife.BindView;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
 import zlc.season.rxdownload.RxDownload;
 import zlc.season.rxdownload.entity.DownloadEvent;
+import zlc.season.rxdownload.entity.DownloadFlag;
 import zlc.season.rxdownload.entity.DownloadStatus;
 import zlc.season.rxdownload.function.Utils;
 
@@ -108,28 +108,18 @@ public class TestBackgroundDownActivity extends BaseActivity implements View.OnC
     protected void onResume() {
         super.onResume();
         subscription = rxdownload.receiveDownloadStatus(url)
-                .subscribe(new Subscriber<DownloadEvent>() {
-                    @Override
-                   public void onCompleted() {
-                        //下载完成
-                        Log.d("onCompleted","onCompleted");
-                        downloadController.setState(new DownloadController.Completed());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        //下载出错
-                        Log.d("onError",e.getMessage());
-                        downloadController.setState(new DownloadController.Failed());
-                    }
-
-                    @Override
-                    public void onNext(final DownloadEvent event) {
-                        //下载状态
-                        updateProgress(event);
-                        downloadController.setEvent(event);
-                    }
-                });
+                .subscribe(new Action1<DownloadEvent>() {
+                            @Override
+                            public void call(DownloadEvent event) {
+                                if (event.getFlag() == DownloadFlag.FAILED) {
+                                    Throwable throwable = event.getError();
+                                    Log.w("Error", throwable);
+                                }
+                                //下载状态
+                                updateProgress(event);
+                                downloadController.setEvent(event);
+                            }
+                        });
     }
 
     /** 启动后台下载 */

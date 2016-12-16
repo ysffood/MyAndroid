@@ -28,7 +28,7 @@ import rx.Subscription;
 public class Utils {
     public static String longToGMT(long lastModify) {
         Date d = new Date(lastModify);
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(d);
     }
@@ -37,7 +37,7 @@ public class Utils {
         if (GMT == null || "".equals(GMT)) {
             return new Date().getTime();
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date date = sdf.parse(GMT);
         return date.getTime();
@@ -81,6 +81,10 @@ public class Utils {
 
     public static boolean serverFileNotChange(Response<Void> resp) {
         return resp.code() == 206;
+    }
+
+    public static boolean requestRangeNotSatisfiable(Response<Void> resp) {
+        return resp.code() == 416;
     }
 
     public static void installApk(Context context, File file) {
