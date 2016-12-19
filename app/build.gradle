@@ -46,6 +46,8 @@ dependencies {
     // GreenDao3.0
     compile'org.greenrobot:greendao:3.0.1'
     compile'org.greenrobot:greendao-generator:3.0.0'
+    // GreenDao加密
+    compile 'net.zetetic:android-database-sqlcipher:3.5.2'
 
     compile project(':httpLib')
     testCompile 'junit:junit:4.12'

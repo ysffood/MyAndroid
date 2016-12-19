@@ -60,7 +60,7 @@ public class TestDaoActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void add(){
-        mUser = new User((long)2,times,"anye3");
+        mUser = new User(null,times,"anye3");
 //        mUserDao.insertOrReplace(mUser);//添加一个
         mUserDao.insertWithoutSettingPk(mUser);
     }
@@ -76,7 +76,10 @@ public class TestDaoActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void select(){
-        List<User> users = mUserDao.loadAll();
+//        List<User> users = mUserDao.loadAll();
+
+        List<User> users =  mUserDao.queryBuilder().build().list();
+
         String userName = "";
         for (int i = 0; i < users.size(); i++) {
             userName += users.get(i).getName()+",";

@@ -1,11 +1,15 @@
 package com.yk.demo.myandroid.db.entity;
 
+import com.anye.greendao.gen.DaoSession;
+import com.anye.greendao.gen.UserDao;
+
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Transient;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * greendao 用户实体类
@@ -14,7 +18,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * created at 2016/12/16 9:31
  */
 @Entity(
-        schema = "app-db",   // 一个项目中有多个schema时 标明要让这个dao属于哪个schema
+//        schema = "myschema",   // 一个项目中有多个schema时 标明要让这个dao属于哪个schema
 
         active = true,  // 是标明是否支持实体类之间update，refresh，delete等操作
 
@@ -26,7 +30,7 @@ import org.greenrobot.greendao.annotation.Generated;
         createInDb = true   // 如果是有多个实体都关联这个表，可以把多余的实体里面设置为false避免重复创建（默认是true）
 )
 public class User {
-    @Id(autoincrement = true)
+    @Id(autoincrement = true) //主键 Long型，可以通过@Id(autoincrement = true)设置自增长
     @Index(unique = true)
     @Property(nameInDb = "id")
     private Long id;
@@ -36,6 +40,12 @@ public class User {
     private String name;
     @Transient
     private String sex; //不存储在数据库中
+    /** Used for active entity operations. */
+    @Generated(hash = 1507654846)
+    private transient UserDao myDao;
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
     public String getName() {
         return this.name;
     }
@@ -53,6 +63,45 @@ public class User {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 2059241980)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getUserDao() : null;
     }
     @Generated(hash = 512467890)
     public User(Long id, long time, String name) {
