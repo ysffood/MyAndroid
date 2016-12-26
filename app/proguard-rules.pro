@@ -36,3 +36,5 @@
 -dontwarn okhttp3.**
 -dontwarn javax.annotation.**
 -dontwarn com.android.volley.toolbox.**
+# GreenDao3.0
+-keepattributes EnclosingMethod

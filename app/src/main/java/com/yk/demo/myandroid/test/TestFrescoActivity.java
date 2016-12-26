@@ -1,10 +1,11 @@
-package com.yk.demo.myandroid.ui;
+package com.yk.demo.myandroid.test;
 
 import android.net.Uri;
 import android.os.Bundle;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yk.demo.myandroid.R;
+import com.yk.demo.myandroid.ui.BaseActivity;
 
 import butterknife.BindView;
 

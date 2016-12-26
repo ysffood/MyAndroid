@@ -1,4 +1,4 @@
-package com.yk.demo.myandroid.ui;
+package com.yk.demo.myandroid.test;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,7 @@ import com.yk.demo.lib.bean.response.UserBean;
 import com.yk.demo.lib.rxjava.presenter.imp.HomeViewPresenter;
 import com.yk.demo.lib.rxjava.viewcallback.IHomeUserView;
 import com.yk.demo.myandroid.R;
+import com.yk.demo.myandroid.ui.BaseActivity;
 
 public class TestHttpRequestActivity extends BaseActivity implements IHomeUserView {
 

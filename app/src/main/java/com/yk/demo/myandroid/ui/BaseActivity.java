@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.yk.demo.lib.rxjava.core.BasePresenter;
-import com.yk.demo.myandroid.utils.SystemBarTintManager;
 
 import butterknife.ButterKnife;
 
@@ -27,7 +26,6 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity {
 
     protected P mvpPresenter;
-    private SystemBarTintManager mTintManager;
     protected FragmentTransaction ft;
     protected FragmentManager fragmentManager;
 
@@ -46,12 +44,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
             getWindow().setStatusBarColor(Color.TRANSPARENT);
             getWindow().setNavigationBarColor(Color.TRANSPARENT);
         }
-        //System Bar由Status Bar<位于顶部>和Navigation Bar<位于底部>组成。
-        mTintManager = new SystemBarTintManager(this);
-//        mTintManager.setTintColor(Color.parseColor("#99000FF"));
-//        mTintManager.setStatusBarTintColor(getResources().getColor(R.color.color_32365d));
-        mTintManager.setStatusBarTintEnabled(true);
-        mTintManager.setNavigationBarTintEnabled(true);
         getWindow().getDecorView().findViewById(android.R.id.content)
                 .setOnClickListener(new View.OnClickListener() {
 

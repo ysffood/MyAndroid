@@ -15,29 +15,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
         <activity
-            android:name=".ui.TestHttpRequestActivity"
+            android:name=".test.TestHttpRequestActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppStartLoadTranslucent">
         </activity>
         <activity
-            android:name=".ui.TestBasicDownActivity"
+            android:name=".test.TestBasicDownActivity"
             android:launchMode="singleTop">
         </activity>
         <activity
-            android:name=".ui.TestBackgroundDownActivity"
+            android:name=".test.TestBackgroundDownActivity"
             android:launchMode="singleTop">
         </activity>
         <activity
-            android:name=".ui.UpFileActivity"
+            android:name=".test.UpFileActivity"
             android:launchMode="singleTop">
         </activity>
         <activity
-            android:name=".ui.TestFrescoActivity"
+            android:name=".test.TestFrescoActivity"
             android:launchMode="singleTop">
         </activity>
         <activity
-            android:name=".ui.TestDaoActivity"
+            android:name=".test.TestDaoActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

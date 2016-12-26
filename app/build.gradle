@@ -15,9 +15,14 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors{
+    }
+    dexOptions{
+        javaMaxHeapSize "4g"
     }
 }
 
@@ -43,8 +48,11 @@ dependencies {
     // 支持 GIF 动图，需要添加
     compile 'com.facebook.fresco:animated-gif:0.12.0'
     // GreenDao3.0
-    compile'org.greenrobot:greendao:3.0.1'
-    compile'org.greenrobot:greendao-generator:3.0.0'
+    compile 'org.greenrobot:greendao:3.0.1'
+    compile 'org.greenrobot:greendao-generator:3.0.0'
+    compile 'net.zetetic:android-database-sqlcipher:3.5.2'
+    // 64K问题API
+    compile 'com.android.support:multidex:1.0.1'
 
     compile project(':httpLib')
     testCompile 'junit:junit:4.12'

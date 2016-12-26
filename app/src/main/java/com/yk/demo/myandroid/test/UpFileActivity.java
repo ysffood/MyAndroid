@@ -1,4 +1,4 @@
-package com.yk.demo.myandroid.ui;
+package com.yk.demo.myandroid.test;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.yk.demo.lib.rxjava.presenter.imp.FileUpPresenter;
 import com.yk.demo.lib.rxjava.viewcallback.IFileUpView;
 import com.yk.demo.myandroid.R;
+import com.yk.demo.myandroid.ui.BaseActivity;
 
 import java.io.File;
 import java.util.HashMap;

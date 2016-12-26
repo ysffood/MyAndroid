@@ -1,4 +1,4 @@
-package com.yk.demo.myandroid.ui;
+package com.yk.demo.myandroid.test;
 
 import android.Manifest;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.tbruyelle.rxpermissions.RxPermissions;
 import com.yk.demo.myandroid.R;
 import com.yk.demo.myandroid.download.DownloadController;
+import com.yk.demo.myandroid.ui.BaseActivity;
 
 import java.io.File;
 
