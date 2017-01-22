@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +25,6 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity {
 
     protected P mvpPresenter;
-    protected FragmentTransaction ft;
     protected FragmentManager fragmentManager;
 
     @Override
@@ -54,13 +52,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends FragmentActi
                     }
                 });
         setContentView(getLayoutId());
+
+        fragmentManager = getSupportFragmentManager();
+
         // 初始化绑定控件,this对应每个页面的context
         ButterKnife.bind(this);
         intPresenter();
         initView(savedInstanceState);
-
-        ft = getSupportFragmentManager().beginTransaction();
-        fragmentManager = getSupportFragmentManager();
     }
 
     /** 初始化http请求presenter */

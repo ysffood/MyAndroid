@@ -3,7 +3,6 @@ package com.yk.demo.myandroid;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.multidex.MultiDex;
 
 import com.anye.greendao.gen.DaoMaster;
 import com.anye.greendao.gen.DaoSession;
@@ -56,7 +55,7 @@ public class DefaultApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
+//        MultiDex.install(this);
 
     }
 

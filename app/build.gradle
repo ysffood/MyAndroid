@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.yk.demo.myandroid"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 24
         multiDexEnabled true
         versionCode 1
@@ -19,9 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors{
+    productFlavors {
     }
-    dexOptions{
+    dexOptions {
         javaMaxHeapSize "4g"
     }
 }
@@ -37,24 +37,27 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile project(':httpLib')
+    compile project(':rxdownload')
     // butterknife注解
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     // RxPermission是为Android 6.0解决运行时权限的一个库
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.8.2@aar'
     // facebook图片加载器Fresco
-    compile "com.facebook.fresco:imagepipeline-okhttp3:0.12.0"
-    compile 'com.facebook.fresco:fresco:0.14.1'
     // 支持 GIF 动图，需要添加
-    compile 'com.facebook.fresco:animated-gif:0.12.0'
     // GreenDao3.0
+    // 64K问题API
+    // RecycleView
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.8.2@aar'
+    compile 'com.facebook.fresco:imagepipeline-okhttp3:0.12.0'
+    compile 'com.facebook.fresco:fresco:0.14.1'
+    compile 'com.facebook.fresco:animated-gif:0.12.0'
     compile 'org.greenrobot:greendao:3.0.1'
     compile 'org.greenrobot:greendao-generator:3.0.0'
     compile 'net.zetetic:android-database-sqlcipher:3.5.2'
-    // 64K问题API
     compile 'com.android.support:multidex:1.0.1'
-
-    compile project(':httpLib')
+    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.0.1'
     testCompile 'junit:junit:4.12'
-    compile project(':rxdownload')
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }
