@@ -31,6 +31,7 @@ public class TestFirstFragment extends Fragment {
         HashMap<Integer,String> map = new HashMap<Integer,String>();
         map.put(1,"hello");
         map.put(1,"world");
+        map.put(1,"test");
 
         for (int i = 0;i<array.size();i++){
             textView.setText("我是第一个fragment,SparseArray内容是:"+array.get(1)+"HashMap的内容是:"+map.get(1));
