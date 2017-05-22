@@ -27,6 +27,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         if (null != view) {
             //因为共用一个Fragment视图，所以当前这个视图已被加载到Activity中，必须先清除后再加入Activity
             if (view.getParent() != null && view instanceof ViewGroup) {

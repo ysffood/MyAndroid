@@ -22,7 +22,7 @@ import org.greenrobot.greendao.annotation.Transient;
 
         active = true,  // 是标明是否支持实体类之间update，refresh，delete等操作
 
-        nameInDb = "AWESOME_USERS", // 是标明是否支持实体类之间update，refresh，delete等操作
+        nameInDb = "AWESOME_USERS", // 就是写个存在数据库里的表名（不写默认是一致）
 
         indexes = {
                 @Index(value = "id DESC", unique = true)  // 定义索引，这里可跨越多个列
