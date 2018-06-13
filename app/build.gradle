@@ -3,7 +3,7 @@ apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.yk.demo.myandroid"
         minSdkVersion 21
@@ -54,7 +54,7 @@ dependencies {
     compile 'org.greenrobot:greendao:3.0.1'
     compile 'org.greenrobot:greendao-generator:3.0.0'
     compile 'net.zetetic:android-database-sqlcipher:3.5.2'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
     compile 'com.android.support:recyclerview-v7:25.0.1'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:support-v4:25.0.1'
